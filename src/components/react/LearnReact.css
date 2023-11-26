@@ -5,11 +5,15 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  &:hover {
+    animation-duration: 1s;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+    -webkit-animation: App-logo-spin infinite 20s linear;
   }
 }
 
@@ -26,6 +30,7 @@
 
 .App-link {
   color: #61dafb;
+  font-size: 15px;
 }
 
 @keyframes App-logo-spin {
