@@ -1,4 +1,5 @@
 // wedding day
+// 28 Nov 23 and attended a new wedding in lkw
 import { Route, Switch } from "wouter";
 import LearnReact from "./components/react/LearnReact";
 import Camera from "./components/camera/Camera";
