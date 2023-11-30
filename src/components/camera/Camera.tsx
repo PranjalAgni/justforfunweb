@@ -31,6 +31,8 @@ function Camera() {
       .then((stream) => {
         const video = videoRef.current as HTMLVideoElement;
         video.srcObject = stream;
+        video.width = window.screen.availWidth;
+        video.height = window.screen.availHeight;
         video.play();
       })
       .catch((err) => {
