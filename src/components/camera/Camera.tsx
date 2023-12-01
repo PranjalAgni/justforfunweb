@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-
+// went out today
 function Camera() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
