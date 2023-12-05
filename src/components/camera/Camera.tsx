@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 // went out today
+// attended K weddding
 function Camera() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
