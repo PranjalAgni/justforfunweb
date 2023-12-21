@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 // went out today
 // attended K weddding
+
+// Hunted bugs all day in React codenbase what a experience and frustration lol
 function Camera() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
