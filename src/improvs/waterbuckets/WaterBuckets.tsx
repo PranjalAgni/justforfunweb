@@ -6,36 +6,40 @@ import {
   IBucketData,
   bucketsConfig,
   generateBuckets,
-  getTotalWater,
   isWaterLevelSameInEveryBucket,
 } from "./bucketService";
 
-const MAX_BUCKETS = 4;
-
 const WaterBuckets = () => {
+  const [totalWater, setTotalWater] = useState<number>(0);
   const [bucketsList, setBucketsList] = useState<Array<IBucketData>>(
-    generateBuckets(MAX_BUCKETS)
+    generateBuckets(bucketsConfig.TOTAL_BUCKETS)
   );
 
   useEffect(() => {
+    const averageWater = totalWater / bucketsConfig.TOTAL_BUCKETS;
+    const isWaterLevelSame = isWaterLevelSameInEveryBucket(
+      bucketsList,
+      averageWater
+    );
+    // const maxWaterLevelInBucket = getMaximumWaterLevelInBuckets(bucketsList);
     const id = setInterval(() => {
-      const totalWater = getTotalWater(bucketsList);
-      const averageWater = totalWater / MAX_BUCKETS;
-      const isWaterLevelSame = isWaterLevelSameInEveryBucket(
-        bucketsList,
-        averageWater
-      );
-
       if (!isWaterLevelSame) {
-        for (let idx = 0; idx < MAX_BUCKETS; idx++) {
+        // const waterToDistribute = maxWaterLevelInBucket - averageWater;
+        // const numUpdatesNeeded = Math.floor(waterToDistribute / 25);
+        // const waterEachBucketGets =
+        //   waterToDistribute / (bucketsConfig.TOTAL_BUCKETS - 1);
+        // const waterDispatchRate = waterEachBucketGets / numUpdatesNeeded || 25;
+        // console.log({ waterDispatchRate });
+
+        for (let idx = 0; idx < bucketsConfig.TOTAL_BUCKETS; idx++) {
           let currentWaterLevel = bucketsList[idx].currentWaterLevel;
           if (currentWaterLevel > averageWater) {
-            currentWaterLevel -= 0.25;
+            currentWaterLevel -= bucketsConfig.DISTRIBUTION_RATE;
             if (currentWaterLevel < averageWater) {
               currentWaterLevel = averageWater;
             }
           } else if (currentWaterLevel < averageWater) {
-            currentWaterLevel += 0.25;
+            currentWaterLevel += bucketsConfig.DISTRIBUTION_RATE;
             if (currentWaterLevel > averageWater) {
               currentWaterLevel = averageWater;
             }
@@ -49,7 +53,7 @@ const WaterBuckets = () => {
 
       clearInterval(id);
     }, 1000);
-  }, [bucketsList]);
+  }, [bucketsList, totalWater]);
 
   const addWater = (idx: number) => {
     const id = setTimeout(() => {
@@ -57,21 +61,26 @@ const WaterBuckets = () => {
       if (currentWaterLevel <= bucketsConfig.BUCKET_LIMIT_LITERS) {
         bucketsList[idx] = {
           ...bucketsList[idx],
-          currentWaterLevel: currentWaterLevel + 2,
+          currentWaterLevel: currentWaterLevel + 200,
         };
         setBucketsList([...bucketsList]);
+        setTotalWater((previousTotalWater) => previousTotalWater + 200);
       }
       clearTimeout(id);
     }, 1000);
   };
 
   const clearWater = (idx: number) => {
+    const { currentWaterLevel } = bucketsList[idx];
     bucketsList[idx] = {
       ...bucketsList[idx],
       currentWaterLevel: 0,
     };
 
     setBucketsList([...bucketsList]);
+    setTotalWater(
+      (previousTotalWater) => previousTotalWater - currentWaterLevel
+    );
   };
 
   return (

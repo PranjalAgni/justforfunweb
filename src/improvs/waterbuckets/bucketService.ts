@@ -4,7 +4,9 @@ export interface IBucketData {
 }
 
 export const bucketsConfig = {
-  BUCKET_LIMIT_LITERS: 10,
+  BUCKET_LIMIT_LITERS: 1000,
+  TOTAL_BUCKETS: 4,
+  DISTRIBUTION_RATE: 25,
 };
 
 export const generateBuckets = (numBuckets: number) => {
@@ -19,9 +21,9 @@ export const generateBuckets = (numBuckets: number) => {
   return buckets;
 };
 
-export const getTotalWater = (buckets: Array<IBucketData>) => {
+export const getMaximumWaterLevelInBuckets = (buckets: Array<IBucketData>) => {
   return buckets.reduce((acc, current) => {
-    return acc + current.currentWaterLevel;
+    return Math.max(acc, current.currentWaterLevel);
   }, 0);
 };
 

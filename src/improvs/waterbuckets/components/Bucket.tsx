@@ -8,15 +8,14 @@ export interface IBucketProps {
 
 const Bucket = ({ waterLevel, maxCapacity }: IBucketProps) => {
   const clampedWaterLevel = Math.min(waterLevel, maxCapacity);
-  const waterLevelScaled = `${(clampedWaterLevel / 2) * 100}`;
   return (
     <>
-      <div className="water-label">{`${waterLevelScaled}L`}</div>
+      <div className="water-label">{`${clampedWaterLevel.toFixed(2)}L`}</div>
       <div className="bucket">
         <div className="handle"></div>
         <div
           className="water"
-          style={{ height: `${clampedWaterLevel * 20}px` }}
+          style={{ height: `${clampedWaterLevel * 0.2}px` }}
         ></div>
       </div>
     </>
