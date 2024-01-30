@@ -1,7 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import "./Camera.css";
 
 function Camera() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isPlayingRef = useRef(true);
+  const [videoElementStyles, setVideoElementStyles] = useState({});
 
   useEffect(() => {
     const updateWindowDetails = () => {
@@ -15,10 +18,15 @@ function Camera() {
         updated: Date.now(),
       };
 
+      setVideoElementStyles({
+        ...videoElementStyles,
+        transform: `translate(-${window.screenX}px, -${window.screenY}px)`,
+      });
+
       console.log("Window details: ", windowDetails);
     };
 
-    window.addEventListener("resize", updateWindowDetails);
+    window.addEventListener("drag", updateWindowDetails);
 
     return () => {
       window.removeEventListener("resize", updateWindowDetails);
@@ -27,7 +35,7 @@ function Camera() {
 
   const getVideo = () => {
     navigator.mediaDevices
-      .getUserMedia({ video: { width: 500, height: 500 } })
+      .getUserMedia({ video: true })
       .then((stream) => {
         const video = videoRef.current as HTMLVideoElement;
         video.srcObject = stream;
@@ -40,6 +48,14 @@ function Camera() {
       });
   };
 
+  useEffect(() => {
+    console.log("Populate video: ", isPlayingRef.current);
+    if (isPlayingRef.current) {
+      getVideo();
+    }
+    isPlayingRef.current = false;
+  }, []);
+
   const stopVideo = () => {
     if (videoRef.current) {
       const video = videoRef.current as HTMLVideoElement;
@@ -48,11 +64,11 @@ function Camera() {
     }
   };
   return (
-    <div>
-      <button onClick={getVideo}>Stream video</button>
-      <button onClick={stopVideo}>Stop video</button>
-      <video ref={videoRef} />
-    </div>
+    <>
+      {/* <button onClick={getVideo}>Stream video</button> */}
+      {/* <button onClick={stopVideo}>Stop video</button> */}
+      <video className="webcam" style={videoElementStyles} ref={videoRef} />
+    </>
   );
 }
 

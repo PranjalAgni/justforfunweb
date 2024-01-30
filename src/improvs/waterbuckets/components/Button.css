@@ -1,0 +1,23 @@
+.custom-button {
+  background-color: #2196f3; /* Material Blue */
+  color: #fff; /* White text */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  filter: brightness(85%);
+}
+
+.button-blue {
+  background-color: #2196f3; 
+}
+
+.button-red {
+  background-color: #f44336;
+  color: #fff;
+}

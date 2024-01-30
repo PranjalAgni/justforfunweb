@@ -5,8 +5,8 @@ function Home() {
   return (
     <div>
       <ul>
-        {routes.map((route) => (
-          <li>
+        {routes.map((route, idx) => (
+          <li key={idx}>
             <Link href={route.path} className="active">
               {route.name.toLowerCase()}
             </Link>

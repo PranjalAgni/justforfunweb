@@ -12,4 +12,8 @@ export const routes: Array<Routes> = [
     path: "/camera",
     name: "camera",
   },
+  {
+    path: "/water-bucket-challenge",
+    name: "WaterBuckets",
+  },
 ];

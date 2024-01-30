@@ -1,0 +1,33 @@
+.bucket {
+  width: 130px;
+  height: 200px;
+  position: relative;
+  border: 5px solid #000; /* Thick black border for bucket walls */
+  border-radius: 10px;
+}
+
+.handle {
+  width: 80px;
+  height: 20px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+.water {
+  width: 100%;
+  background-color: #87ceeb;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: height 0.5s ease-in-out;
+}
+
+.water-label {
+  text-align: center;
+  color: #000;
+  font-weight: bold;
+  margin-top: 4px; /* Adjusted margin for positioning on the upper wall */
+}
