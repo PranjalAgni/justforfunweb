@@ -15,12 +15,19 @@ const WaterBuckets = () => {
     generateBuckets(bucketsConfig.TOTAL_BUCKETS)
   );
 
+  const [isAddingWater, setIsAddingWater] = useState(false);
+
   useEffect(() => {
     const averageWater = totalWater / bucketsConfig.TOTAL_BUCKETS;
     const isWaterLevelSame = isWaterLevelSameInEveryBucket(
       bucketsList,
       averageWater
     );
+
+    if (!isWaterLevelSame) {
+      // mark true as we will need to distribute water
+      setIsAddingWater(true);
+    }
     // const maxWaterLevelInBucket = getMaximumWaterLevelInBuckets(bucketsList);
     const id = setInterval(() => {
       if (!isWaterLevelSame) {
@@ -52,10 +59,12 @@ const WaterBuckets = () => {
       }
 
       clearInterval(id);
+      setIsAddingWater(false);
     }, 1000);
   }, [bucketsList, totalWater]);
 
   const addWater = (idx: number) => {
+    if (isAddingWater) return;
     const id = setTimeout(() => {
       const { currentWaterLevel } = bucketsList[idx];
       if (currentWaterLevel <= bucketsConfig.BUCKET_LIMIT_LITERS) {
