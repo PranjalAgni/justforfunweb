@@ -16,4 +16,8 @@ export const routes: Array<Routes> = [
     path: "/water-bucket-challenge",
     name: "WaterBuckets",
   },
+  {
+    path: "/qr",
+    name: "QRCode",
+  },
 ];

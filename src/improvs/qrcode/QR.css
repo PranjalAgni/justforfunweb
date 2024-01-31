@@ -1,0 +1,57 @@
+.qrcode-generator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh; /* Make sure the container takes at least the full height of the viewport */
+}
+
+.qrcode-container {
+  margin-top: 20px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-label {
+  position: absolute;
+  top: 50%;
+  color: #555;
+  font-size: 18px;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.3s ease-out, font-size 0.3s ease-out, color 0.3s ease-out;
+}
+
+
+.input-box {
+  width: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: rgba(255,255,255,0.3);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+  font-size: 20px;
+  position: relative;
+}
+
+.input-box:hover {
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+
+.input-focused .input-label,
+.input-box:valid + .input-label {
+  transform: translateY(-100%) scale(0.8);
+  font-size: 14px;
+  color: #007bff;
+  -webkit-transform: translateY(-100%) scale(0.8);
+  -moz-transform: translateY(-100%) scale(0.8);
+  -ms-transform: translateY(-100%) scale(0.8);
+  -o-transform: translateY(-100%) scale(0.8);
+}
+
+.input-box:focus + .input-label {
+  color: #007bff;
+}
