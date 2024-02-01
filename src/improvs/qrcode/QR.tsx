@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import html2canvas from "html2canvas";
 import QRCode from "qrcode.react";
 import "./QR.css";
 
 function QR() {
-  const [text, setText] = useState<string>();
+  const [text, setText] = useState<string>("");
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const qrCodeRef = useRef(null);
 
   const handleTextChange = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -13,6 +15,17 @@ function QR() {
 
   const handleTextFocusState = (isFocused: boolean) => {
     setIsInputFocused(isFocused);
+  };
+
+  const downloadQRCode = () => {
+    if (qrCodeRef.current) {
+      html2canvas(qrCodeRef.current).then((canvas) => {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "qrcode.png";
+        link.click();
+      });
+    }
   };
 
   const labelStyle = {
@@ -49,9 +62,14 @@ function QR() {
         />
       </div>
       {text && (
-        <div className="qrcode-container">
-          <QRCode value={text} size={400} />
-        </div>
+        <>
+          <div className="qrcode-container" ref={qrCodeRef}>
+            <QRCode value={text} size={400} />
+          </div>
+          <button className="download-button" onClick={downloadQRCode}>
+            Download QR Code
+          </button>
+        </>
       )}
     </div>
   );
