@@ -8,7 +8,6 @@ function QR() {
 
   const handleTextChange = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
-    console.log("Typed: ", event.currentTarget.value);
     setText(String(event.currentTarget.value));
   };
 
