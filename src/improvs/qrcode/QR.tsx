@@ -50,7 +50,7 @@ function QR() {
           className={`input-label ${isInputFocused || text ? "visible" : ""}`}
           style={labelStyle}
         >
-          QRify 🎨
+          QRify 🎨🎁
         </label>
         <input
           type="text"
